@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI ප්‍රවචන – තැන්පතුව</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .console-box {
+      font-family: monospace;
+      background-color: #1a1a1a;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 20px #00ff88;
+      color: #00ff88;
+      height: 250px;
+      overflow-y: auto;
+    }
+    .loading-screen {
+      font-family: monospace;
+      background: #000;
+      color: #00ff88;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      flex-direction: column;
+      z-index: 50;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+    .hidden-screen { display: none; }
+  </style>
+</head>
+<body class="bg-gray-900 text-white font-sans">
+  <div id="loading" class="loading-screen hidden-screen">
+    <p>බාගැනෙමින්... කරුණාකර මඳක් රැඳී සිටින්න.</p>
+  </div>
+  <div id="mainContent" class="">
+    <header class="w-full bg-gray-800 p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-green-400">AI ප්‍රවචන</h1>
+      <nav class="space-x-4">
+        <a href="#how" class="hover:text-green-400">කෙසේද?</a>
+        <a href="#games" class="hover:text-green-400">ක්‍රීඩා</a>
+        <a href="#start" class="hover:text-green-400">ඇරඹීම</a>
+      </nav>
+    </header>
+    <section class="min-h-screen flex flex-col items-center justify-center px-4 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-6">
+        AI ක්‍රීඩා ප්‍රවචන සමඟ සැබෑ මුදල් උපයාගන්න
+      </h2>
+      <div class="mb-4 text-lg font-semibold text-yellow-300">
+        👋 <span class="text-green-400">Dilan Ruwan</span>ගේ නිල සේවයට ඔබව සාදරයෙන් පිළිගනිමු!
+      </div>
+      <p class="max-w-xl mb-8 text-gray-300">
+        අවිඇටර්, මයින්ස්, දඬුවම් ක්‍රීඩා වලින් දිනූවන්ට එක්වන්න. 98% නිවැරදිවීම, සජීවී ප්‍රවචන සහ ක්ෂණික ආපසු ගැනීම්!
+      </p>
+      <!-- ID input for connection -->
+      <input id="userId" type="text" placeholder="ඔබගේ ගිණුම් අංකය ඇතුලත් කරන්න" class="bg-gray-700 text-white p-3 rounded-md mb-4">
+      <button id="connectButton" class="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-6 rounded-xl text-lg transition">ගිණුම සම්බන්ධ කරන්න</button>
+      <!-- Success message -->
+      <div id="connectionSuccess" class="hidden text-green-400 font-bold mt-6">
+        <p>ගිණුම් අංකය: <span id="accountIdDisplay">1234567890</span> සාර්ථකව සම්බන්ධ විය!</p>
+        <p>තත්ත්වය: සක්‍රීය • 100% නිවැරදි • AI විශ්ලේෂණය කරන ලදී</p>
+        <button id="getSignalButton" class="bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-xl text-lg transition mt-4">සංඥාව ලබාගන්න</button>
+      </div>
+      <!-- Error message for deposit + PROMOCODE block -->
+      <div id="errorBox" class="hidden bg-red-600 p-6 rounded-xl max-w-md mx-auto mt-6">
+        <h2 class="text-xl font-bold mb-2">⚠️ තැන්පතුව සොයාගත නොහැකි විය</h2>
+        <p class="mb-4">ඔබගේ ශේෂය හිස් බව පෙනේ. කරුණාකර අවම වශයෙන් <strong>රු. 1200 හෝ වැඩි</strong> තැන්පතුවක් සිදුකර signals ලබාගැනීමට සහ ලාභ උපය ආරම්භ කිරීමට.</p>
+        <a href="https://reffpa.com/L?tag=d_5791037m_29091c_&site=5791037&ad=29091&r=registration" target="_blank" id="depositButton" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition">
+          දැන් තැන්පතු කරන්න
+        </a>
+        <!-- Promo code -->
+        <div class="mb-1 text-lg mt-4">
+          ඔබගේ ප්‍රවර්ධන කේතය: 
+          <span class="bg-black p-1 rounded text-green-400">LKF111</span>
+        </div>
+      </div>
+    </section>
+    <!-- Winners -->
+    <section class="bg-gray-800 py-12 px-6 text-center">
+      <h3 class="text-2xl font-bold text-green-400 mb-6">අද දින දිනූවන් (රු.)</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-left max-w-4xl mx-auto text-sm text-green-300">
+        <p>👤 User: 1218473422 – රු. 25,328</p>
+        <p>👤 User: 9912384741 – රු. 21,900</p>
+        <p>👤 User: 3099234822 – රු. 14,120</p>
+        <p>👤 User: 1187339121 – රු. 10,000</p>
+        <p>👤 User: 4412900113 – රු. 12,850</p>
+        <p>👤 User: 8283721091 – රු. 18,440</p>
+        <p>👤 User: 7751937742 – රු. 10,705</p>
+        <p>👤 User: 5554921811 – රු. 9,330</p>
+        <p>👤 User: 1983238742 – රු. 8,000</p>
+        <p>👤 User: 3377749301 – රු. 7,210</p>
+      </div>
+    </section>
+    <!-- Supported games -->
+    <section id="games" class="bg-gray-800 py-12 px-6 text-center">
+      <h3 class="text-2xl font-bold text-green-400 mb-6">සහාය දක්වන ක්‍රීඩා</h3>
+      <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+        <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
+          <h4 class="text-xl font-bold mb-2">🎮 Aviator</h4>
+          <p class="text-gray-300">ගුවන් යානය ගොස් යාමේ පෙර මුදල් ගන්න. AI මගින් සජීවී රටා හඳුනාගනී.</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
+          <h4 class="text-xl font-bold mb-2">💣 Mines</h4>
+          <p class="text-gray-300">බෝම්බ වලින් වැළකී ලාභ ගන්න. අපේ AI වැඩිම ආදායම සඳහා අවදානම් අඩු මාර්ග සොයනවා.</p>
+        </div>
+        <div class="bg-gray-700 p-6 rounded-xl shadow-lg">
+          <h4 class="text-xl font-bold mb-2">🥅 Penalty</h4>
+          <p class="text-gray-300">ගෝල්කීපර් ජයගන්න සජීවී දත්ත මත පදනම් වූ පුරෝකථන.</p>
+        </div>
+      </div>
+    </section>
+    <!-- How it works -->
+    <section id="how" class="bg-gray-900 py-12 px-6 text-center">
+      <h3 class="text-2xl font-bold text-green-400 mb-6">එය ක්‍රියා කරන ආකාරය</h3>
+      <div class="max-w-3xl mx-auto space-y-4 text-gray-300">
+        <p>📡 AI සජීවී සහ ඉතිහාස ගේම් දත්ත විශ්ලේෂණය කරයි.</p>
+        <p>💡 නිතරම ලාභ ලබාදෙන රටා හඳුනාගනී.</p>
+        <p>📲 ඔබගේ උපාංගයට සෘජු සජීවී සංඥා ලැබේ.</p>
+      </div>
+    </section>
+    <section class="bg-black py-12 px-6 text-center">
+      <h3 class="text-xl font-bold text-green-400 mb-4">[ Console – නිරීක්ෂණ ලොග් ]</h3>
+      <div class="console-box max-w-3xl mx-auto text-left" id="console">
+        <p>[INFO] ප්‍රවචන සේවය සක්‍රීයයි ✅</p>
+      </div>
+    </section>
+    <footer class="text-center text-gray-500 text-sm py-6">
+      © 2025 AI Predictions. 1xBet සමඟ සම්බන්ධතාවක් නොමැත. වගකිවයුතු ලෙස භාවිත කරන්න.
+    </footer>
+  </div>
+  <script>
+    setTimeout(() => {
+      document.getElementById("loading").classList.add("hidden-screen");
+      document.getElementById("mainContent").classList.remove("hidden-screen");
+    }, 3000);
+
+    document.getElementById("connectButton").addEventListener("click", () => {
+      const userId = document.getElementById("userId").value;
+      if (userId) {
+        document.getElementById("accountIdDisplay").innerText = userId;
+        document.getElementById("connectionSuccess").classList.remove("hidden");
+        document.getElementById("errorBox").classList.add("hidden");
+      }
+    });
+
+    document.getElementById("getSignalButton").addEventListener("click", () => {
+      document.getElementById("errorBox").classList.remove("hidden");
+    });
+  </script>
+</body>
+</html>
